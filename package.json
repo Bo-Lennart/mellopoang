@@ -1,0 +1,20 @@
+{
+  "name": "melodifestivalen-voting",
+  "version": "1.0.0",
+  "description": "Local network voting app for Melodifestivalen performance judging",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "install-all": "yarn install && cd server && yarn install && cd ../client && yarn install",
+    "dev": "concurrently \"cd server && yarn dev\" \"cd client && yarn dev\"",
+    "build": "cd client && yarn build",
+    "server": "cd server && yarn dev",
+    "client": "cd client && yarn dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

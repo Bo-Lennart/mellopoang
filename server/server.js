@@ -6,6 +6,7 @@ import os from "os";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import https from "https";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -429,5 +430,15 @@ app.get("/api/results-revealed", (req, res) => {
 app.listen(PORT, () => {
   const localIP = getLocalIP();
   console.log(`\n🎵 Mellopoäng server kör på http://localhost:${PORT}`);
-  console.log(`🌐 Lokalt nätverk: http://${localIP}:${PORT}\n`);
+  console.log(`👥 Participant network: http://${localIP}:${PORT}\n`);
+});
+
+// Clean up session data when server is stopped
+process.on("SIGINT", () => {
+  console.log("\n🛑 Stänger ner servern...");
+  if (fs.existsSync(SESSION_FILE)) {
+    fs.unlinkSync(SESSION_FILE);
+    console.log("🗑️  Session data raderad.");
+  }
+  process.exit(0);
 });
